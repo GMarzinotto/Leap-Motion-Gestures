@@ -1,19 +1,19 @@
-function [] = train_hmm_model(FeatureList,trainingIDX)
+function [] = train_hmm_model(FeatureList)
 
     %FeatureList is a list of all the digits features organized
     %by two index FeatureList{1}{10} access to the 10th sample
     %of the 1st class (digit 0)
         
-    tdigits0 = vertcat(FeatureList{1} {trainingIDX});
-    tdigits1 = vertcat(FeatureList{2} {trainingIDX});
-    tdigits2 = vertcat(FeatureList{3} {trainingIDX});
-    tdigits3 = vertcat(FeatureList{4} {trainingIDX});
-    tdigits4 = vertcat(FeatureList{5} {trainingIDX});
-    tdigits5 = vertcat(FeatureList{6} {trainingIDX});
-    tdigits6 = vertcat(FeatureList{7} {trainingIDX});
-    tdigits7 = vertcat(FeatureList{8} {trainingIDX});
-    tdigits8 = vertcat(FeatureList{9} {trainingIDX});
-    tdigits9 = vertcat(FeatureList{10}{trainingIDX});
+    tdigits0 = vertcat(FeatureList{1} {:});
+    tdigits1 = vertcat(FeatureList{2} {:});
+    tdigits2 = vertcat(FeatureList{3} {:});
+    tdigits3 = vertcat(FeatureList{4} {:});
+    tdigits4 = vertcat(FeatureList{5} {:});
+    tdigits5 = vertcat(FeatureList{6} {:});
+    tdigits6 = vertcat(FeatureList{7} {:});
+    tdigits7 = vertcat(FeatureList{8} {:});
+    tdigits8 = vertcat(FeatureList{9} {:});
+    tdigits9 = vertcat(FeatureList{10}{:});
     
     trainingSet = [tdigits0;tdigits1;tdigits2;tdigits3;tdigits4;...
                    tdigits5;tdigits6;tdigits7;tdigits8;tdigits9];
@@ -29,7 +29,7 @@ function [] = train_hmm_model(FeatureList,trainingIDX)
         %Declare the zdigitX variable
         eval(strcat('zdigits',num2str(k),' = {};'));
         idx = 1;
-        for m=trainingIDX
+        for m=1:length(FeatureList{k+1})
             [mrows,~] = size(FeatureList{k+1}{m}); 
             eval(strcat('zdigits',num2str(k),'{idx} = Ztraining(1:mrows,:)'';'));
             Ztraining(1:mrows,:) = []; 
@@ -77,7 +77,7 @@ function [] = train_hmm_model(FeatureList,trainingIDX)
         h = gca;
         hold on
         X = []; Y = []; C = [];
-        for m=1:length(trainingIDX)
+        for m=1:length(FeatureList{k})
             dataSample = ZNormFeatureList{k}{m};
             B = mixgauss_prob(dataSample, HMMModels{k}.mu, HMMModels{k}.sigma, HMMModels{k}.mixmat);
             [path] = viterbi_path(HMMModels{k}.prior, HMMModels{k}.transmat, B);

@@ -1,4 +1,4 @@
-function [confusion_matrix,dtwProbs] = test_dtw_model(FeatureList,testIDX)
+function [confusion_matrix,dtwProbs] = test_dtw_model(FeatureList)
 
     confusion_matrix = zeros(10);
     dtwProbs = {};
@@ -6,7 +6,7 @@ function [confusion_matrix,dtwProbs] = test_dtw_model(FeatureList,testIDX)
     %by two index FeatureList{1}{10} access to the 10th sample
     %of the 1st class (digit 0)
     for k=1:10
-       for m=testIDX
+       for m=1:length(FeatureList{k})
            
             %Test a digit in the DTW
             [probabilities] = eval_dtw_model(FeatureList{k}{m}); 

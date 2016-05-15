@@ -1,4 +1,4 @@
-function [confusion_matrix,hmmProbs] = test_hmm_model(FeatureList,testIDX)
+function [confusion_matrix,hmmProbs] = test_hmm_model(FeatureList)
 
     confusion_matrix = zeros(10);
     hmmProbs = {};
@@ -6,7 +6,7 @@ function [confusion_matrix,hmmProbs] = test_hmm_model(FeatureList,testIDX)
     %by two index FeatureList{1}{10} access to the 10th sample
     %of the 1st class (digit 0)
     for k=1:10
-       for m=testIDX
+       for m=1:length(FeatureList{k})
            
             %Test a digit in the HMM
             [probabilities] = eval_hmm_model(FeatureList{k}{m}); 

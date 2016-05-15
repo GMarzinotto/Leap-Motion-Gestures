@@ -34,10 +34,10 @@ function [KNNProbabilities] = eval_dtw_model(featuresTestDigit)
     softConst = 0.01; 
     Ndist_lab = sortDistLabel([1:KNeighbors],:);
     softProb  = softmax(-1*softConst*Ndist_lab(:,1));
-    KNNProbabilities = zeros(1,numDigits);
+    KNNProbabilities = zeros(numDigits,1);
     
     for k=1:KNeighbors
-        KNNProbabilities(Ndist_lab(k,2)+1) = KNNProbabilities(Ndist_lab(k,2)+1) + softProb(k);
+        KNNProbabilities(Ndist_lab(k,2)+1) = KNNProbabilities(Ndist_lab(k,2)+1) + softProb(k)';
     end
     
     

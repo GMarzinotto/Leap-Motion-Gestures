@@ -1,4 +1,4 @@
-function [] = train_gmm_model(FeatureList,trainingIDX)
+function [] = train_gmm_model(FeatureList)
 
     %FeatureList is a list of all the digits features organized
     %by two index FeatureList{1}{10} access to the 10th sample
@@ -7,16 +7,16 @@ function [] = train_gmm_model(FeatureList,trainingIDX)
     replicates    = 50;
     regValue      = 0.25;
 
-    tdigits0 = vertcat(FeatureList{1} {trainingIDX});
-    tdigits1 = vertcat(FeatureList{2} {trainingIDX});
-    tdigits2 = vertcat(FeatureList{3} {trainingIDX});
-    tdigits3 = vertcat(FeatureList{4} {trainingIDX});
-    tdigits4 = vertcat(FeatureList{5} {trainingIDX});
-    tdigits5 = vertcat(FeatureList{6} {trainingIDX});
-    tdigits6 = vertcat(FeatureList{7} {trainingIDX});
-    tdigits7 = vertcat(FeatureList{8} {trainingIDX});
-    tdigits8 = vertcat(FeatureList{9} {trainingIDX});
-    tdigits9 = vertcat(FeatureList{10}{trainingIDX});
+    tdigits0 = vertcat(FeatureList{1} {:});
+    tdigits1 = vertcat(FeatureList{2} {:});
+    tdigits2 = vertcat(FeatureList{3} {:});
+    tdigits3 = vertcat(FeatureList{4} {:});
+    tdigits4 = vertcat(FeatureList{5} {:});
+    tdigits5 = vertcat(FeatureList{6} {:});
+    tdigits6 = vertcat(FeatureList{7} {:});
+    tdigits7 = vertcat(FeatureList{8} {:});
+    tdigits8 = vertcat(FeatureList{9} {:});
+    tdigits9 = vertcat(FeatureList{10}{:});
     
     trainingSet = [tdigits0;tdigits1;tdigits2;tdigits3;tdigits4;...
                    tdigits5;tdigits6;tdigits7;tdigits8;tdigits9];
