@@ -27,67 +27,19 @@ function [] = train_dtw_model(FeatureList,trainingIDX)
     meanTrain  = mean(trainingSet);
     stdTrain   = std (trainingSet);
      
-
-    %Loop for Digit 0
-    zdigits0 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{1}{m}); zdigits0{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
+    %Loop for each Digit 0-9
+    for k=0:9
+        %Declare the zdigitX variable
+        eval(strcat('zdigits',num2str(k),' = {};'));
+        idx = 1;
+        for m=trainingIDX
+            [mrows,~] = size(FeatureList{k+1}{m}); 
+            eval(strcat('zdigits',num2str(k),'{idx} = Ztraining(1:mrows,:);'));
+            Ztraining(1:mrows,:) = []; 
+            idx = idx+1;
+        end
     end
-
-    %Loop for Digit 1
-    zdigits1 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{2}{m}); zdigits1{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 2
-    zdigits2 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{3}{m}); zdigits2{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 3
-    zdigits3 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{4}{m}); zdigits3{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 4
-    zdigits4 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{5}{m}); zdigits4{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 5
-    zdigits5 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{6}{m}); zdigits5{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 6
-    zdigits6 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{7}{m}); zdigits6{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 7
-    zdigits7 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{8}{m}); zdigits7{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-
-    %Loop for Digit 8
-    zdigits8 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{9}{m}); zdigits8{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-    
-    %Loop for Digit 9
-    zdigits9 = {};  idx = 1;
-    for m=trainingIDX
-        [mrows,~] = size(FeatureList{10}{m}); zdigits9{idx} = Ztraining(1:mrows,:); Ztraining(1:mrows,:) = []; idx = idx+1;
-    end
-        
+       
     DTWModels  = {zdigits0,zdigits1,zdigits2,zdigits3,zdigits4,zdigits5,zdigits6,zdigits7,zdigits8,zdigits9};
 
     %Initialize the pairwise distance matrix for all the training samples
