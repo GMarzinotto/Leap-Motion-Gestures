@@ -29,7 +29,7 @@ for k=1:10
     daux = {};
     idx = 1;
     for m=TrainingSamples
-        path = strcat('E:\Dropbox\Leap Motion Tutorial\Database\Samples',num2str(k-1),'\file',num2str(k-1),'n',num2str(m),'.lmr');
+        path = strcat('/DB Samples/Samples',num2str(k-1),'/file',num2str(k-1),'n',num2str(m),'.lmr');
         daux{idx}  = read_preprocess_and_feature_extract_digit(path);
         idx = idx +1;
     end
@@ -56,7 +56,7 @@ for k=1:10
     daux = {};
     idx = 1;
     for m=TestSamples
-        path = strcat('E:\Dropbox\Leap Motion Tutorial\Database\Samples',num2str(k-1),'\file',num2str(k-1),'n',num2str(m),'.lmr');
+        path = strcat('/DB Samples/Samples',num2str(k-1),'\file',num2str(k-1),'n',num2str(m),'.lmr');
         daux{idx}  = read_preprocess_and_feature_extract_digit(path);
         idx = idx +1;
     end
