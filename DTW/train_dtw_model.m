@@ -46,24 +46,25 @@ function [] = train_dtw_model(FeatureList)
     %used for DTW. it means, length(trainingIDX) samples for each digit
     numDigits      = 10;
     
-    numTrainSam    = [length(FeatureList{1}) length(FeatureList{2}) length(FeatureList{3}) ...
+    numTrainSample = [length(FeatureList{1}) length(FeatureList{2}) length(FeatureList{3}) ...
                       length(FeatureList{4}) length(FeatureList{5}) length(FeatureList{6}) ...
                       length(FeatureList{7}) length(FeatureList{8}) length(FeatureList{9}) ...
                       length(FeatureList{10}) ];
-                  
-    labelsDTW      = zeros(sum(numTrainSam),1);
-    distDTWMatrix  = zeros(sum(numTrainSam));
+             
+    totalSamples   = sum(numTrainSample);              
+    labelsDTW      = zeros(totalSamples,1);
+    distDTWMatrix  = zeros(totalSamples);
     textLabel     = {};
     
     for k = 1:numDigits
-        for m = 1:numTrainSam(k)
-            labelsDTW(sum(numTrainSam(1:(k-1))) + m) = k-1;
-            textLabel{sum(numTrainSam(1:(k-1))) + m} = strcat('(',num2str(k),',',num2str(m),')');
+        for m = 1:numTrainSample(k)
+            labelsDTW(sum(numTrainSample(1:(k-1))) + m) = k-1;
+            textLabel{sum(numTrainSample(1:(k-1))) + m} = strcat('(',num2str(k),',',num2str(m),')');
             for n = 1:numDigits
-                for o = 1:numTrainSam(k)
+                for o = 1:numTrainSample(k)
                     %Make it lower triangular to save half the computing
-                    if(sum(numTrainSam(1:(k-1))) + m > (n-1)*numTrainSam(k) + o)
-                        distDTWMatrix(sum(numTrainSam(1:(k-1))) + m, sum(numTrainSam(1:(n-1))) + o ) = dtw(DTWModels{k}{m},DTWModels{n}{o});
+                    if(sum(numTrainSample(1:(k-1))) + m > (n-1)*numTrainSample(k) + o)
+                        distDTWMatrix(sum(numTrainSample(1:(k-1))) + m, sum(numTrainSample(1:(n-1))) + o ) = dtw(DTWModels{k}{m},DTWModels{n}{o});
                     end
                 end
             end
@@ -81,6 +82,6 @@ function [] = train_dtw_model(FeatureList)
     %text(Y(:,1),Y(:,2),textLabels,'FontSize',8) %visualize the indexes
     gscatter(Y(:,1),Y(:,2),labelsDTW) 
       
-    save('DTW_Model','DTWModels','distDTWMatrix','labelsDTW','meanTrain','stdTrain');
+    save('DTW_Model','DTWModels','distDTWMatrix','labelsDTW','meanTrain','stdTrain','numTrainSample');
 
 end

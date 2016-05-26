@@ -7,13 +7,14 @@ function [KNNProbabilities] = eval_dtw_model(featuresTestDigit)
     featuresTestDigit   = featuresTestDigit./ repmat(stdTrain, mrow,1);
     
     numDigits = 10;
-    [totalSamples,~] = size(distDTWMatrix);
+    totalSamples     = sum(numTrainSample);
     distances        = zeros(totalSamples,1);
     numTrainSam      = totalSamples/numDigits;
     
     for k = 1:numDigits
-        for m = 1:numTrainSam
-            distances((k-1)*numTrainSam + m) = dtw(DTWModels{k}{m},featuresTestDigit);
+        baseIDX = sum(numTrainSample(1:k-1));
+        for m = 1:numTrainSample(k)
+            distances(baseIDX + m) = dtw(DTWModels{k}{m},featuresTestDigit);
         end
     end
     
